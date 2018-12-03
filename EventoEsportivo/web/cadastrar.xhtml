@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      template="./pages/template.xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+<!--    <ui:define name="top">
+        <h:form>
+            <h1>Cadastrar</h1>
+        </h:form>
+        
+    </ui:define>-->
+   
+    <ui:define name="conteudo">
+       <div class="row mt">
+    <div class="col-lg-12">
+        <div class="form-panel">
+            
+            
+          
+            <h:form>
+                <p:fieldset legend="Cadastrar">
+                    
+                    <p:panelGrid columns="2" >
+                        
+                            <h:outputLabel value="Nome"></h:outputLabel>
+                            <p:inputText value="#{usuarioMB.usuario.nome}"></p:inputText>
+                            
+                            <h:outputLabel value="Email"></h:outputLabel>
+                            <p:inputText value="#{usuarioMB.usuario.email}"></p:inputText>
+                            
+                            <h:outputLabel value="Telefone"></h:outputLabel>
+                            <p:inputMask value="#{usuarioMB.usuario.telefone}" mask="(99) 9999-9999"></p:inputMask>
+                            
+                            <h:outputLabel value="Idade"></h:outputLabel>
+                            <p:inputText value="#{usuarioMB.usuario.idade}"></p:inputText>
+                            
+                            <h:outputLabel value="Login"></h:outputLabel>
+                            <p:inputText value="#{usuarioMB.usuario.login}"></p:inputText>
+                            
+                            <h:outputLabel value="Senha"></h:outputLabel>
+                            <h:inputSecret value="#{usuarioMB.usuario.senha}" ></h:inputSecret>
+                            
+                            <h:outputLabel value="validação da senha"></h:outputLabel>
+                            <h:inputSecret value="#{usuarioMB.segundaSenha}"></h:inputSecret>                            
+                        
+                            <p:outputLabel for="sexo" value="Sexo:" />
+
+                            <p:selectOneMenu id="sexo" value="#{usuarioMB.usuario.sexo}" style="width:125px">
+                                <f:selectItem itemLabel="Selecione ..." itemValue="" />
+                                <f:selectItem itemLabel="Masculino" itemValue="1" />
+                                <f:selectItem itemLabel="Feminino" itemValue="0" />
+                               
+                            </p:selectOneMenu>
+      
+                         
+                    </p:panelGrid>
+                    <p:toolbar>
+                        <p:toolbarGroup>
+                            <p:growl id="growl" life="2000" />
+                            <p:commandButton class="btn btn-theme" value="Salvar" action="#{usuarioMB.salvarUsuario()}" id="ajax" update="growl" style="margin-right:20px;" styleClass="ui-priority-primary" ></p:commandButton>
+                            <p:commandButton class="btn btn-theme" value="Voltar" action="index.xhtml"></p:commandButton>                          
+                            
+                        </p:toolbarGroup>
+                    </p:toolbar>
+                
+                    
+                </p:fieldset>                
+                
+
+</h:form>
+                
+                
+            
+        </div><!-- /form-panel -->
+    </div><!-- /col-lg-12 -->
+</div>
+        
+    </ui:define>
+</ui:composition>
+
