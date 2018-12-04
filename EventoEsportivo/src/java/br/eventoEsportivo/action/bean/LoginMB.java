@@ -8,6 +8,8 @@ package br.eventoEsportivo.action.bean;
 
 import br.eventoEsportivo.model.classe.Usuario;
 import br.eventoEsportivo.model.dao.imp.UsuarioDao;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -26,15 +28,22 @@ public class LoginMB {
     private String login, senha;
     private Usuario userLogado;
     
-    public LoginMB() {
-            
-        
+//    public LoginMB() {
+//            
+//        
+//    }
+    @PostConstruct
+    public void init(){
+        System.out.println("Criou sessão");
+    }
+    @PreDestroy
+    public void destoy(){
+        System.out.println("limpou sessão");
     }
     
     
-    
     public String logout(){
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+       // FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         
         return "index?faces-redirect=true";
         

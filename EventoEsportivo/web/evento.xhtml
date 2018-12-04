@@ -11,9 +11,9 @@
    
     <ui:define name="conteudo">
         
-        <h:panelGroup id="visao"  >
+        <h:panelGroup id="visao" rendered="#{eventoMB.status == 'view'}" >
             <h:form>
-<!--            <h:panelGrid columns="3" >
+            <h:panelGrid columns="3" >
                 Data ::
                 <h:inputText value="#{eventoMB.dataInicio}" > 
                     <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -22,18 +22,20 @@
                 <h:inputText value="#{eventoMB.dataFim}" >
                     <f:convertDateTime pattern="dd/MM/yyyy" />
                 </h:inputText>
-                Tipo :: <h:selectOneMenu >
+<!--                Tipo :: <h:selectOneMenu >
                     <f:selectItem itemLabel="Selecione..." itemValue="-1" />
                     <f:selectItems value="#{minhaAgendaMB.atividades}" var="tp"
                                    itemLabel="#{tp.descricao}" itemValue="#{tp.idtipoAtividade}" />
 
                 </h:selectOneMenu> <h:panelGroup />
-                <h:panelGroup /> 
-                <h:commandButton value="Pesquisar" action="#{minhaAgendaMB.pesquisa}" />
+                <h:panelGroup /> -->
+                <h:commandButton value="Pesquisar" action="#{eventoMB.pesquisa}" />
                 <h:commandButton value="Novo" action="#{eventoMB.callInsertMode()}" />                    
-            </h:panelGrid>-->
+            </h:panelGrid>
                 
-            <h:dataTable border="1" width="100%" value="#{minhaAgendaMB.meusEventos}" var="evt" >
+                
+                
+                <h:dataTable border="1" width="100%" value="#{eventoMB.meusEventos}" var="evt" >
                 <h:column>
                     <f:facet name="header" >Data</f:facet>
                     <h:outputText value="#{evt.dataEvento}" >
@@ -49,6 +51,7 @@
                 <h:column>   <f:facet name="header" > Tipo</f:facet>
                         #{evt.tipoEvento.descricao}
                 </h:column>
+                    
 
                 <h:column>  <f:facet name="header" >
                         Evento já Ocorrido</f:facet>
@@ -59,36 +62,36 @@
                     <f:facet name="header" >
                         Edição
                     </f:facet>
-                    <h:commandLink value="E" action="#{minhaAgendaMB.callEditMode(evt)}" />
+                    <h:commandLink value="E" action="#{eventoMB.callEditMode(evt)}" />
                 </h:column>  
                 <h:column>  
                     <f:facet name="header" >
                         Apagar
                     </f:facet>
-                    <p:commandButton value="X" action="#{minhaAgendaMB.callDeleteMode(evt)}"  >
-<!--                        <p:confirm header="Confirmation" message="Deseja apagar?" icon="pi pi-exclamation-triangle" />-->
+                    <p:commandButton value="X" action="#{eventoMB.callDeleteMode(evt)}"  >
+                        <p:confirm header="Confirmation" message="Deseja apagar?" icon="pi pi-exclamation-triangle" />
                     </p:commandButton>
                 </h:column>  
                 <h:column>  
                     <f:facet name="header" >
                         Detalhe
                     </f:facet>
-                    <h:commandLink value="D" action="#{minhaAgendaMB.callDetalheMode(evt)}" />
+                    <h:commandLink value="D" action="#{eventoMB.callDetalheMode(evt)}" />
                 </h:column>
             </h:dataTable>
-<!--                <p:confirmDialog  message="Deseja apagar?" widgetVar="msg" global="true" showEffect="fade" hideEffect="fade">
+                <p:confirmDialog  message="Deseja apagar?" widgetVar="msg" global="true" showEffect="fade" hideEffect="fade">
 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-</p:confirmDialog>-->
+</p:confirmDialog>
                 
 
                 
                 </h:form>
         </h:panelGroup>
                 
-        <h:panelGroup id="insert" rendered="#{(minhaAgendaMB.status == 'insert')
-                                              || (minhaAgendaMB.status == 'edit')
-                                              || (minhaAgendaMB.status == 'details')}" >
+        <h:panelGroup id="insert" rendered="#{(eventoMB.status == 'insert')
+                                              || (eventoMB.status == 'edit')
+                                              || (eventoMB.status == 'details')}" >
 <div class="row mt">
 <div class="col-lg-12">
     <div class="form-panel">
@@ -98,45 +101,28 @@
             <div class="form-group">
                 <label class="sr-only" for="exampleInputEmail2">Data do Evento</label>
                 <h:inputText class="form-control" required="true" a:placeholder="Data"
-                             value="#{minhaAgendaMB.selecionado.dataEvento}"
-                             disabled="#{minhaAgendaMB.status == 'details'}" > 
+                             value="#{eventoMB.evento.eventodata}"
+                             disabled="#{eventoMB.status == 'details'}" > 
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                 </h:inputText>                        
             </div>
             <div class="form-group">
                 <label class="sr-only" for="exampleInputPassword2">Descrição</label>
                 <h:inputText class="form-control" required="true" a:placeholder="Descrição" 
-                             value="#{minhaAgendaMB.selecionado.descricao}"
-                             disabled="#{minhaAgendaMB.status == 'details'}" />                        
+                             value="#{eventoMB.evento.descricao}"
+                             disabled="#{eventoMB.status == 'details'}" />                        
             </div>                    
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail2">Conteúdo</label>
-                <h:inputTextarea rows="4" class="form-control" required="true" a:placeholder="Conteúdo"
-                               disabled="#{minhaAgendaMB.status == 'details'}"
-                                 value="#{minhaAgendaMB.selecionado.conteudo}" />    
-            </div>
-            <div class="form-group">
-                <label class="sr-only" for="exampleInputEmail2">Tipo de Evento</label>
-                <h:selectOneMenu class="form-control" required="true" a:placeholder="Tipo de Evento"
-                              disabled="#{minhaAgendaMB.status == 'details'}"
-                                 value="#{minhaAgendaMB.selecionado.tipoEvento.idtipoAtividade}" >
-                    <f:selectItem
-                        itemLabel="Selecione..." itemValue="-1" />
-                    <f:selectItems value="#{minhaAgendaMB.atividades}" var="te" itemLabel="#{te.descricao}"
 
-                                   itemValue="#{te.idtipoAtividade}" />
-                </h:selectOneMenu>    
-            </div>
 
             <h:commandButton class="btn btn-theme"
-                             rendered="#{minhaAgendaMB.status != 'details'}"
-                             value="#{(minhaAgendaMB.status == 'insert')?'Gravar':'Alterar'}"
-                             action="#{minhaAgendaMB.callSaveMode()}" />
+                             rendered="#{eventoMB.status != 'details'}"
+                             value="#{(eventoMB.status == 'insert')?'Gravar':'Alterar'}"
+                             action="#{eventoMB.callSaveMode()}" />
             &nbsp;
 
         </h:form>
 <h:form>
-    <h:commandButton class="btn btn-theme" value="Voltar" action="#{minhaAgendaMB.callViewMode()}" />
+    <h:commandButton class="btn btn-theme" value="Voltar" action="#{eventoMB.callViewMode()}" />
 </h:form>
                         </div><!-- /form-panel -->
                     </div><!-- /col-lg-12 -->

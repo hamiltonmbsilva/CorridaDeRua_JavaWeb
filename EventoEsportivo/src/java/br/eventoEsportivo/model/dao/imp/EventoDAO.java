@@ -22,7 +22,7 @@ public class EventoDAO extends DaoGeneric<Evento, Integer>{
         connection();
         try {
             Query q = em.createQuery("select e from Evento e where "
-                    + " e.usuario.idusuario = :idp and e.eventodata >= :dt1 and "
+                    + " e.usuarioList.idusuario = :idp and e.eventodata >= :dt1 and "
                     + " e.dataEvento <= :dt2");
             q.setParameter("idp", user.getIdusuario());
             q.setParameter("dt1", dataInicio);
@@ -36,10 +36,15 @@ public class EventoDAO extends DaoGeneric<Evento, Integer>{
     public List<Evento> meusEventos(Usuario user){
         connection();
         try {
-            Query q = em.createQuery("select e from Evento e where "
-                    + " e.usuario.idusuario = :idp");
+            Query q = em.createQuery("select e from Evento e "
+                    + " join e.usuarioList u  "
+                    + "where u.idusuario = :idp");
+       // Query q = em.createQuery("select e from Evento e where e.usuarioList.idusuario = :idp ");
             q.setParameter("idp", user.getIdusuario());
             return q.getResultList();
+        }catch(Exception e){
+            em.getTransaction().rollback(); 
+            return null;
         } finally {
             close();
         }

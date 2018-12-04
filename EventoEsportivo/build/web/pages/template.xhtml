@@ -155,7 +155,7 @@
                 <p:menuitem  value="Meus Eventos" url="evento.xhtml" class="fa fa-dashboard" rendered="#{loginMB.userLogado != null}"></p:menuitem>
             </p:menubar>
             <p:menubar >
-                <p:menuitem  value="Logout" action="#{loginMB.logout()}" class="fa fa-dashboard" rendered="#{loginMB.userLogado != null}"></p:menuitem>
+                <p:menuitem  value="Logout"  class="fa fa-dashboard" rendered="#{loginMB.userLogado != null}"></p:menuitem>
             </p:menubar>
             
             
@@ -200,7 +200,7 @@
                         </li> 
                         
                         <li>
-                            <h:commandLink rendered="#{loginMB.userLogado != null}"  action="#{loginMB.logout()}">
+                            <h:commandLink rendered="#{loginMB.userLogado != null}" >
                                 <span>Logout</span>
                             </h:commandLink>
                         </li> 
